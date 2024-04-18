@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1fde68b5c0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>MHT-CET Councelling and college predictor</title>
+    <title>College Predictor</title>
+</head>
+
+<body>
+<?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "mht-cet_data";
+  
+
+    // Establishing connection
+    $conn = new mysqli($servername, $username, $password, $database);
+
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    // Sanitize inputs
+    $state_rank = mysqli_real_escape_string($conn, $_GET['state-rank']);
+    $branch = mysqli_real_escape_string($conn, $_GET['branch']);
+    $category = mysqli_real_escape_string($conn, $_GET['category']);
+
+    // Prepare SQL query
+    $sql = "SELECT CollegeName, CollegeBranch, Category, Intake, ClosingRank
+            FROM cut-off_data
+            WHERE Category = '$category' AND CollegeBranch = '$branch'
+            ORDER BY ClosingRank ASC";
+
+    // Execute query
+    $result = mysqli_query($conn, $sql);
+
+    // Check if query executed successfully
+    if ($result) {
+        // Check if there are rows returned
+        if (mysqli_num_rows($result) > 0) {
+            // Output data of each row
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "College Name: " . $row["CollegeName"] . "<br>";
+                echo "College Branch: " . $row["CollegeBranch"] . "<br>";
+                echo "Category: " . $row["Category"] . "<br>";
+                echo "Intake: " . $row["Intake"] . "<br>";
+                echo "Closing Rank: " . $row["ClosingRank"] . "<br>";
+                echo "<br>";
+            }
+        } else {
+            echo "No results found";
+        }
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+
+    // Close connection
+    mysqli_close($conn);
+?>
+
+
+    <nav class="nav-bar">
+        <div class="logo">Logo</div>
+        <div class="nav-items">
+            <a href="index.html" class="nav-list">Home</a>
+            <a href="collegepredictor.html" class="nav-list">College Predictor</a>
+            <a href="Placement_Statistic.html" class="nav-list">Placement Statistic</a>
+            <a href="#" class="nav-list">Previous year cut-off</a>
+            <a href="#" class="nav-list">College reviews</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" name="" id="" placeholder="Search College">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </nav>
+    <section class="required-form">
+        <div class="form-container">
+            <h1 class="prediction-heading">College Predictor</h1>
+            <form id="prediction-form" action="collegepredictor.php" method="post">
+                <label for="state-rank">State Merit Rank:</label>
+                <input type="number" id="state-rank" name="state-rank" required>
+
+                <label for="branch" class="prediction-label">Branch:</label>
+                <select id="branch" name="branch" required>
+                    <option value="">-- Select Branch --</option>
+                    <option value="Mechanical">Mechanical Engineering</option>
+                    <option value="Civil">Civil Engineering</option>
+                    <option value="Robotics and automation">Robotics and Automation Engineering</option>
+                    <option value="Electrical">Electrical Engineering</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="CSE">Computer Science Engineering</option>
+                    <option value="ENTC">Electronics & Telecommunication</option>
+                    <option value="AIDS">Artificial Intelligence and Data science</option>
+                </select>
+
+                <label for="gender" class="prediction-label">Gender:</label>
+                <div class="gender-options">
+                    <input type="radio" id="male" name="gender" value="Male" required>
+                    <label for="male" class="prediction-label">Male</label>
+
+                    <input type="radio" id="female" name="gender" value="Female" required>
+                    <label for="female" class="prediction-label">Female</label>
+                </div>
+                   
+                <label for="category" class="prediction-label">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="">-- Select Category --</option>
+                    <option value="GOPEN">General</option>
+                    <option value="GSCS">SC</option>
+                    <option value="GSTS">ST</option>
+                    <option value="GVJS">VJ</option>
+                    <option value="GNT1S">NT1</option>
+                    <option value="GNT2S">NT2</option>
+                    <option value="GNT3S">NT3</option>
+                    <option value="GOBCS">OBC</option>
+
+                </select>
+
+
+                <label for="Preference" class="prediction-label">Preference:</label>
+                <select id="prefer" name="prefer" required>
+                    <option value="">-- Select Preference --</option>
+                    <option value="College">College</option>
+                    <option value="Branch">Branch</option>
+                    
+                </select>
+
+                <button href="#output-table" id="Predict-btn" type="submit">Predict Colleges</button>
+            </form>
+        </div>
+    </section>
+     <?php
+     $servername="localhost";
+     $username="root";
+     $password="";
+     $database="mht-cet_data";
+     $port="3308";
+     $conn=mysqli_connect($servername,$username,$password,$database,$port);
+    
+   $state_rank =$_GET['state-rank'];
+   $branch =$_GET['branch'];
+   $category =$_GET['category'];
+
+   $sql = "SELECT CollegeName, CollegeBranch, Category, Intake, ClosingRank
+           FROM cut-off_data
+           WHERE Category = '$category' AND CollegeBranch = '$branch'
+           ORDER BY ClosingRank ASC";
+    $result=mysqli_query($conn,$sql);
+     if($result){
+        echo "success <br>";
+    }
+        else{
+            echo "connection failed".mysqli_error($conn);
+        }
+     
+     ?>
+
+    <!-- <section id="output-table">
+        <div id="prediction-table">
+            <h2>Predicted Colleges</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>College Name</th>
+                        <th>College Code</th>
+                        <th>Intake</th>
+                        <th>Branch</th>
+                        <th>Closing Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section> -->
+    <!-- .............................Footer................................... -->
+    <footer>
+        <div class="list-item">
+            <div class="about-list">
+                <li class="about"><a href="about.html">About us</a></li>
+                <li class="about"><a href="#">FAQs</a></li>
+                <li class="about"><a href="ContactUs.html">Contact us</a></li>
+                <li class="about"><a href="#">Management Team</a></li>
+                <li class="about"><a href="#">Career</a></li>
+            </div>
+            <div class="help-list">
+                <li class="enquires"><a href="#">Enterprises</a></li>
+                <li class="enquires"><a href="#">Client Login</a></li>
+                <li class="enquires"><a href="#">Advertising/Sales</a></li>
+                <li class="enquires"><a href="#">Enquires</a></li>
+                <li class="enquires"><a href="#">Add Colleges</a></li>
+            </div>
+            <div class="Resources">
+                <a>
+                    <p class="resources-text">Resources</p>
+                </a>
+                <a>
+                    <li class="resources-list">Career after 12th</li>
+                </a>
+                <a>
+                    <li class="resources-list">Courses After 12th</li>
+                </a>
+                <a>
+                    <li class="resources-list">Education Boards</li>
+                </a>
+                <a>
+                    <li class="resources-list">Ask a Question</li>
+                </a>
+                <a>
+                    <li class="resources-list" id="write-review-button">Write a college review</li>
+                </a>
+                <a>
+                    <li class="resources-list">Articles</li>
+                </a>
+                <a>
+                    <li class="resources-list">Discussion</li>
+                </a>
+            </div>
+            <div class="contact-details">
+                <p class="contact-text">Connect with us on</p>
+                <div class="contact-icon">
+                    <a><i class="fa-brands fa-instagram" class="social-icon"></i></a>
+                    <a><i class="fa-brands fa-facebook-f" class="social-icon"></i></a>
+                    <a><i class="fa-brands fa-twitter" class="social-icon"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const  PredictionTable = document.getElementById('prediction-table');
+        const  PredictBtn = document.getElementById('Predict-btn');
+
+           PredictBtn.addEventListener("click",()=>{
+          PredictionTable.style.visibility="visible";
+});
+ console.log(table.rows)
+    </script>
+</body>
+
+</html>

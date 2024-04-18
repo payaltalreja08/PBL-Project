@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/1fde68b5c0.js"crossorigin="anonymous"></script>
+    <title>MHT-CET Councelling and college predictor</title>
+</head>
+
+<body>
+    
+
+    <!-- .......................Navigation................................ --> 
+    <nav class="nav-bar">
+        <div class="logo">Logo</div>
+        <div class="nav-items">
+            <a href="index.html" class="nav-list">Home</a>
+            <a href="collegepredictor.html" class="nav-list">College Predictor</a>
+            <a href="Placement_Statistic.html" class="nav-list">Placement Statistic</a>
+            <a href="cutt_off.html" class="nav-list" >Previous year cut-off</a>
+            <a href="#" class="nav-list">College reviews</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" name="" id="" placeholder="Search College">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </nav>
+    <!-- ................................Review-form(hidden)............................................. -->
+    
+    <div id="review-form" class="hidden"> <div class="form-wrapper"> <button id="close-form" class="close-btn">&times;</button> <h2>Write a College Review</h2>
+        <form id="review-form-content">
+            <button id="close-form" class="close-btn">&times;</button>
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="college-name">College Name:</label>
+            <input type="text" id="college-name" name="college-name" required>
+
+            <label for="current-year">Current Year of Study:</label>
+            <select id="current-year" name="current-year" required>
+                <option value="">-- Select Year --</option>
+                <option value="1">First Year</option>
+                <option value="2">Second Year</option>
+                <option value="3">Third Year</option>
+                <option value="4">Fourth Year</option>
+            </select>
+
+            <label for="college-id">College ID Image (Proof):</label>
+            <input type="file" id="college-id" name="college-id" accept="image/*" required>
+            <p>Accepted formats: JPG, JPEG, PNG.</p>
+
+            <textarea id="review" name="review" rows="5" placeholder="Write your honest review here..."></textarea>
+
+            <button type="submit" class="submit-btn">Submit Review</button>
+        </form>
+    </div>
+</div>
+
+
+    <!-- ..........................Main-content........................... -->
+    <section class="home-bg">
+        <div class="main-content">
+         <div class="info-text">MHT-CET Engineering Admission Guidance</div>
+            <h1>You can now predict your college</h1>
+            <a href="collegepredictor.html"><button>Click Here</button></a>
+        
+        </div>
+    </section>
+
+ <!-- ........................figures.................................. -->
+    <section class="figures">
+        <div class="fig-text">
+            <p>Find College that is best for you</p>
+        </div>
+        <div class="web-data">
+            <div class="actual-figure">300 <br>College</div>
+            <div class="actual-figure">200+ <br>Reviews</div>
+            <div class="actual-figure">200+ <br>Reviews</div>
+        </div>
+    </section>
+    <!-- .............................Footer................................... -->
+    <footer>
+        <div class="list-item" >
+            <div class="about-list">
+                <li class="about"><a href="about.html">About us</a></li>
+                <li class="about"><a href="#">FAQs</a></li>
+                <li class="about"><a href="ContactUs.html">Contact us</a></li>
+                <li class="about"><a href="#">Management Team</a></li>
+                <li class="about"><a href="#">Career</a></li>
+            </div>
+            <div class="help-list">
+                <li class="enquires"><a href="#">Enterprises</a></li>
+                <li class="enquires"><a href="#">Client Login</a></li>
+                <li class="enquires"><a href="#">Advertising/Sales</a></li>
+                <li class="enquires"><a href="#">Enquires</a></li>
+                <li class="enquires"><a href="#">Add Colleges</a></li>
+            </div>
+            <div class="Resources">
+                <a><p class="resources-text">Resources</p></a>
+                <a><li class="resources-list">Career after 12th</li></a>
+                <a><li class="resources-list">Courses After 12th</li></a>       
+                <a><li class="resources-list">Education Boards</li></a>
+                <a><li class="resources-list">Ask a Question</li></a>
+                <a><li class="resources-list" id="write-review-button">Write a college review</li></a>
+                <a><li class="resources-list">Articles</li></a>
+                <a><li class="resources-list">Discussion</li></a>
+            </div>
+            <div class="contact-details">
+                  <p class="contact-text">Connect with us on</p>
+                  <div class="contact-icon">
+                <a><i class="fa-brands fa-instagram" class="social-icon"></i></a>
+                <a><i class="fa-brands fa-facebook-f"class="social-icon"></i></a>
+                <a><i class="fa-brands fa-twitter"class="social-icon"></i></a></div>
+            </div>
+        </div>
+    </footer>
+<script src="script.js"></script>
+  
+</body>
+
+</html>
